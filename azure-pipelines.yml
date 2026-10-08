@@ -8,14 +8,16 @@ trigger:
 
 strategy:
   matrix:
-    linux:
+    py3.9_linux:
       imageName: "ubuntu-latest"
-    mac:
+      pythonVersion: 3.9
+    py3.10_mac:
       imageName: "macOS-latest"
-    windows:
+      pythonVersion: 3.10
+    py3.11_windows:
       imageName: "windows-latest"
+      pythonVersion: 3.11
   maxParallel: 3
-
 
 pool:
   vmImage: $(imageName)
@@ -23,8 +25,8 @@ pool:
 steps:
 - task: UsePythonVersion@0
   inputs:
-    versionSpec: '3.11'
-  displayName: 'Use Python 3.11'
+    versionSpec: '$(pythonVersion)'
+  displayName: 'Use Python $(pythonVersion)'
 
 - script: |
     python -m pip install --upgrade pip
